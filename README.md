@@ -12,4 +12,7 @@ Run all in notebook.
 Data files not included. 
 
 Known issues: 
-1. Fitting down not work for every single channel by themselves eg (3, E, 0). Error message originates from the data file to "remake with all irreps"
+1. Fitting does not rewrite the results file, so if you run the fit for 1 specific irrep, it will not run for other irreps. An error will pop up that states "remake result/deuteron_Zjn_tNorm3_evp.h5 with all irreps".
+   Current bandaid fixes:
+   a. Delete result folder, and rerun the code with the desired irrep to fit. Must be repeated everytime. 
+   b. Delete the result folder, and run the fit for all irreps then swap to plotting for 1. 
