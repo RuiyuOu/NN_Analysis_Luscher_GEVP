@@ -1,3 +1,18 @@
+v0.1.2:
+To do: 
+1. Display fit parameters and quality of fit values
+2. Create procedure that created this notebook
+3. See how to manually add fit priors. Currently set to auto.
+4. Any other demands
+
+To run: Alter the looping parameters to just 1 element in each array. The default given in v0.1.2 takes hours to run. 
+
+Data files not included. 
+
+Known issues:
+1. Fitting does not rewrite the results file... 
+2. Summary plot is inefficient. Unsure if inefficiency will be resolved any time soon. It works, but just slow. 
+
 v0.1.1:
 To do: 
 1. Display fit parameters and quality of fit values

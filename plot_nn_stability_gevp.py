@@ -210,19 +210,20 @@ def main(params):
     #import IPython; IPython.embed()
     # make summary plot
     if args.summary:
-        plt.clear('all')
+        plt.show()
+        plt.close('all')
         if nn_iso == 'deuteron':
             mN = gevp_results['0_T1g_0']['E1'][0]
         elif nn_iso == 'dineutron':
             mN = gevp_results['0_A1g_0']['E1'][0]
+        plt.close('all')
         # plot GEVP
-        summary_gevp = summary_plot.summary_ENN(gevp_results, mN, gevp_lbls, color, spin=nn_iso, 
+        summary_plot.summary_ENN(gevp_results, mN, gevp_lbls, color, spin=nn_iso, 
                                 lbl0=r'GEVP: $t_0-t_d$=', fig=f"{nn_iso}_gevp_summary")
         # plot tmin
-        summary_tmin = summary_plot.summary_ENN(tmin_results, mN, tmin_lbls, t_color, spin=nn_iso,
+        summary_plot.summary_ENN(tmin_results, mN, tmin_lbls, t_color, spin=nn_iso,
                                 lbl0=r'$t_{\rm min}^{NN}=$', fig=f"{nn_iso}_tmin_summary")
-    
-    plt.ioff()
+
 
 def plot_tmin(axnn, axnnR, axQ, state, models, arg, nnFile, nnDict, nnModel, optModel, fitKeys, nnData, r_gevp, l_gevp, r_tmin, l_tmin, ratio=True):
 
