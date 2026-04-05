@@ -12,9 +12,10 @@ Data files not included.
 Known issues:
 1. Fitting does not rewrite the results file... 
 2. Summary plot is inefficient. Unsure if inefficiency will be resolved any time soon. It works, but just slow. 
+3. Critical memory leak issue found. Looping over many parameters causes memory leaks. Attempting fix. 
 
 Needed Testing: 
-1. Run the loop for parameters and compare with output of equivalent bash script. Expected to take hours -- overnight. Will do tonight 04/04. 
+1. Run the loop for parameters and compare with output of equivalent bash script. Expected to take hours -- overnight. Will do tonight 04/04. CRITICAL ISSUE -- MEMORY LEAK. 
 2. There was something else to test, but it is late and I forgot. 
 
 v0.0.1:
