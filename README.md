@@ -5,7 +5,7 @@ To do:
 3. See how to manually add fit priors. Currently set to auto.
 4. Any other demands
 
-To run: Alter the looping parameters to just 1 element in each array. The default given in v0.1.2 takes hours to run. 
+To run: Alter the looping parameters to just 1 element in each array. The default given in v0.1.2 takes hours to run. Default reproduces the effect of run_nn_conspire_gevp.sh. 
 
 Data files not included. 
 
