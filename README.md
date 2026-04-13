@@ -1,55 +1,21 @@
-v0.1.2:
-To do: 
-1. Display fit parameters and quality of fit values
-2. Create procedure that created this notebook
-3. See how to manually add fit priors. Currently set to auto.
-4. Any other demands
+v0.2.1:
+To do:
+1. Allow changeable plot axis limits in the notebook.
+2. Test bootstrapping
+3. Recode the fitting to dump fit and necessary data into separate folders for separate irreps
+4. See if it is possible to toggle boosted irrep states for fitting
+5. Create procedure that created this notebook
+6. See how to manually add fit priors. Currently set to auto.
+7. Implement fix for known issues 1
+8. Any other demands
 
-To run: Alter the looping parameters to just 1 element in each array. The default given in v0.1.2 takes hours to run. Default reproduces the effect of run_nn_conspire_gevp.sh. 
+To run: Run all. You can collapse most of the cells. If on browser localhost, click bluebar on the left of the cell to collapse it. If on vs code, double click blank area to the left of cell and below run arrow to collapse it. All the functionality is in the dropdown panels and buttons, not much is needed to be changed in the code. 
 
-Data files not included. 
-
-Known issues:
-1. Fitting does not rewrite the results file... 
-2. Summary plot is inefficient. Unsure if inefficiency will be resolved any time soon. It works, but just slow. 
-
-v0.1.1:
-To do: 
-1. Display fit parameters and quality of fit values
-2. Create procedure that created this notebook
-3. See how to manually add fit priors. Currently set to auto.
-4. Any other demands
-
-To run: Run all in notebook. 
-
-Data files not included. 
-
-Known issues:
-1. Fitting does not rewrite the results file... 
-2. Summary plot is inefficient. Unsure if inefficiency will be resolved any time soon. It works, but just slow. 
-3. Critical memory leak issue found. Looping over many parameters causes memory leaks. Attempting fix. 
-
-Needed Testing: 
-1. Run the loop for parameters and compare with output of equivalent bash script. Expected to take hours -- overnight. Will do tonight 04/04. CRITICAL ISSUE -- MEMORY LEAK. 
-2. There was something else to test, but it is late and I forgot. 
-
-v0.0.1:
-
-To do: 
-1. Clean up text outputs
-2. Display fit parameters and quality of fit values
-3. Create procedure that created this notebook
-4. See how to manually add fit priors. Currently set to auto.
-5. Clean up the parameter blocks to reduce clutter
-6. Any other demands
-
-To run: 
-Run all in notebook. 
-
-Data files not included. 
+Data filed not included. 
 
 Known issues: 
 1. Fitting does not rewrite the results file, so if you run the fit for 1 specific irrep, it will not run for other irreps. An error will pop up that states "remake result/deuteron_Zjn_tNorm3_evp.h5 with all irreps".
-   Current bandaid fixes:
-   a. Delete result folder, and rerun the code with the desired irrep to fit. Must be repeated everytime. 
-   b. Delete the result folder, and run the fit for all irreps then swap to plotting for 1. 
+   Thus the displaying of the fit parameters will come up blank for fits not done. 
+
+Possible issues: 
+1. Anomalous memory leak with vs code happened once during testing. Unable to reproduce the error. May not exist in the pushed version. 
