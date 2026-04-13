@@ -9,7 +9,7 @@ To do:
 7. Implement fix for known issues 1
 8. Any other demands
 
-To run: Run all. You can collapse most of the cells. If on browser localhost, click bluebar on the left of the cell to collapse it. If on vs code, double click blank area to the left of cell and below run arrow to collapse it. All the functionality is in the dropdown panels and buttons, not much is needed to be changed in the code. 
+To run: Run all. You can collapse most --really all-- of the cells. If on browser localhost, click bluebar on the left of the cell to collapse it. If on vs code, double click blank area to the left of cell and below run arrow to collapse it. All the functionality is in the dropdown panels and buttons, not much is needed to be changed in the code. 
 
 Only 1 specific fit can be done at a time on the current version. 
 
