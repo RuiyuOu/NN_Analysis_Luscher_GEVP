@@ -12,7 +12,7 @@ Only 1 specific fit can be done at a time on the current version.
 Data filed not included. 
 
 Known issues: 
-1. Plotting does not display the Q value for non-standard parameters (essentially all defaults). Temporary fix is to display Q value above the plot. 
+1. Plotting does not display the Q value. Temporary fix is to display Q value above the plot. 
 
 Possible issues: 
 1. Anomalous memory leak with vs code happened once during testing. Unable to reproduce the error. May not exist in the pushed version. 
