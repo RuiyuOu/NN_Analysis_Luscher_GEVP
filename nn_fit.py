@@ -217,7 +217,14 @@ class Fit:
         self.ZjnSq = ZjnSq_irrep
 
         if self.params['Zjn_values']:
-            with h5.File(self.params['Zjn_values'],'w') as f5:
+            
+            k, pirrep, level = self.params['masterkey'][0][0]
+            IrrepPath = f"{k}{pirrep}{level}"
+
+            outdir = f"result/{IrrepPath}"
+            os.makedirs(outdir, exist_ok=True)
+
+            with h5.File(f"result/{IrrepPath}/{self.params['Zjn_values']}",'w') as f5:
                 for irrep in ZjnSq_irrep:
                     key = f"{irrep[0]}_{irrep[1]}"
                     for level in ZjnSq_irrep[irrep]:
@@ -226,9 +233,13 @@ class Fit:
     def read_Zjn(self):
         ZjnSq_irrep = dict()
         E_sort      = dict()
+        
+        k, pirrep, level = self.params['masterkey'][0][0]
+        IrrepPath = f"{k}{pirrep}{level}"
+
         print('reading Zjn values')
-        print(f"    {self.params['Zjn_values']}")
-        with h5.File(self.params['Zjn_values'],'r') as f5:
+        print(f"result/{IrrepPath}/{self.params['Zjn_values']}")
+        with h5.File(f"result/{IrrepPath}/{self.params['Zjn_values']}",'r') as f5:
             #for irrep in f5.keys():
                 #key = tuple(irrep.split('_'))
             for key in self.irreps:
@@ -239,8 +250,8 @@ class Fit:
                         ZjnSq_irrep[key][int(level)] = f5[f"{irrep}/Zjn/{level}"][()]
                 except:
                     print()
-                    print(f"your {self.params['Zjn_values']} is missing irreps")
-                    sys.exit(f"remake {self.params['Zjn_values']} with all irreps")
+                    print(f"your {f"result/{IrrepPath}/{self.params['Zjn_values']}"} is missing irreps")
+                    sys.exit(f"remake {f"result/{IrrepPath}/{self.params['Zjn_values']}"} with all irreps")
                 E_sort[irrep] = f5[f"{irrep}/E_sort"][()]
         self.ZjnSq = ZjnSq_irrep
         self.E_sort = E_sort
@@ -286,7 +297,11 @@ class Fit:
             E_tot = np.array(E_tot)
             i_sort = np.argsort(E_tot)
             print(i_sort)
-            with h5.File(self.params['Zjn_values'],'a') as f5:
+
+            k, pirrep, level = self.params['masterkey'][0][0]
+            IrrepPath = f"{k}{pirrep}{level}"
+
+            with h5.File(f"result/{IrrepPath}/{self.params['Zjn_values']}",'a') as f5:
                 key = f"{irrep[0]}_{irrep[1]}"
                 f5.create_dataset(f"{key}/E_sort",data=i_sort)
 
@@ -1125,10 +1140,13 @@ class Fit:
 
             del self.bsresult
         else:
-            if os.path.exists(f"./result/{self.filename}"):
-                os.remove(f"./result/{self.filename}")
+            k, irrep, level = self.params['masterkey'][0][0]
+            IrrepPath = f"{k}{irrep}{level}"
+
+            if os.path.exists(f"./result/{IrrepPath}/{self.filename}"):
+                os.remove(f"./result/{IrrepPath}/{self.filename}")
             print('saving result')
-            gv.dump(self.posterior, f"./result/{self.filename}")
+            gv.dump(self.posterior, f"./result/{IrrepPath}/{self.filename}")
 
 
     def get_bs_pickle_Nbs(self):
