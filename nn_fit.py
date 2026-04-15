@@ -218,8 +218,7 @@ class Fit:
 
         if self.params['Zjn_values']:
 
-            k, pirrep, level = self.params['masterkey'][0][0]
-            IrrepPath = f"{k}{pirrep}{level}"
+            IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
 
             outdir = f"result/{IrrepPath}"
             os.makedirs(outdir, exist_ok=True)
@@ -234,8 +233,7 @@ class Fit:
         ZjnSq_irrep = dict()
         E_sort      = dict()
         
-        k, pirrep, level = self.params['masterkey'][0][0]
-        IrrepPath = f"{k}{pirrep}{level}"
+        IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
 
         print('reading Zjn values')
         print(f"result/{IrrepPath}/{self.params['Zjn_values']}")
@@ -298,8 +296,7 @@ class Fit:
             i_sort = np.argsort(E_tot)
             print(i_sort)
 
-            k, pirrep, level = self.params['masterkey'][0][0]
-            IrrepPath = f"{k}{pirrep}{level}"
+            IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
 
             with h5.File(f"result/{IrrepPath}/{self.params['Zjn_values']}",'a') as f5:
                 key = f"{irrep[0]}_{irrep[1]}"
@@ -1131,8 +1128,7 @@ class Fit:
 
         if self.params['bootstrap']:
 
-            k, pirrep, level = self.params['masterkey'][0][0]
-            IrrepPath = f"{k}{pirrep}{level}"
+            IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
 
             if not os.path.exists(f"./result/{IrrepPath}/{self.filename}_bs"):
                 gv.dump(self.bsresult, f"./result/{IrrepPath}/{self.filename}_bs")
@@ -1145,8 +1141,7 @@ class Fit:
             del self.bsresult
         else:
 
-            k, pirrep, level = self.params['masterkey'][0][0]
-            IrrepPath = f"{k}{pirrep}{level}"
+            IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
 
             if os.path.exists(f"./result/{IrrepPath}/{self.filename}"):
                 os.remove(f"./result/{IrrepPath}/{self.filename}")
@@ -1155,8 +1150,7 @@ class Fit:
 
 
     def get_bs_pickle_Nbs(self):
-        k, pirrep, level = self.params['masterkey'][0][0]
-        IrrepPath = f"{k}{pirrep}{level}"
+        IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
 
         if os.path.exists(f"./result/{IrrepPath}/{self.filename}_bs"):
             bsresult = gv.load(f"./result/{IrrepPath}/{self.filename}_bs")
@@ -1167,12 +1161,11 @@ class Fit:
         return Nbs
 
     def get_b0_posteriors(self):
-        k, pirrep, level = self.params['masterkey'][0][0]
-        IrrepPath = f"{k}{pirrep}{level}"
+        IrrepPath = f"{self.params['masterkey'][0][0][0]}{self.params['masterkey'][0][0][1]}{self.params['masterkey'][0][0][2]}"
         if os.path.exists(f"./result/{IrrepPath}/{self.boot0_file}"):
             return gv.load(f"./result/{IrrepPath}/{self.boot0_file}")
         else:
-            print("can't get boot0, DOES NOT EXISTS: "+f"result/{self.boot0_file}")
+            print("can't get boot0, DOES NOT EXISTS: "+f"result/{IrrepPath}/{self.boot0_file}")
             sys.exit('run again with p["bootstrap"] = False')
 
 
@@ -1421,8 +1414,9 @@ def main(param):
             os.makedirs(d)
     fit = Fit(params=param)
     bs_p = param
+    IrrepPath = f"{param['masterkey'][0][0][0]}{param['masterkey'][0][0][1]}{param['masterkey'][0][0][2]}"
     if bs_p['get_Zj']:
-        if os.path.exists(bs_p['Zjn_values']):
+        if os.path.exists(f"result/{IrrepPath}/{bs_p['Zjn_values']}"):
             # these two lines are just to generate self.irreps
             fit.get_all_levels()
             fit.restore_masterkey()
