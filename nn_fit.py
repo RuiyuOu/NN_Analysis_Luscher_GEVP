@@ -217,7 +217,7 @@ class Fit:
         self.ZjnSq = ZjnSq_irrep
 
         if self.params['Zjn_values']:
-            
+
             k, pirrep, level = self.params['masterkey'][0][0]
             IrrepPath = f"{k}{pirrep}{level}"
 
@@ -1130,18 +1130,23 @@ class Fit:
             return
 
         if self.params['bootstrap']:
-            if not os.path.exists(f"./result/{self.filename}_bs"):
-                gv.dump(self.bsresult, f"./result/{self.filename}_bs")
+
+            k, pirrep, level = self.params['masterkey'][0][0]
+            IrrepPath = f"{k}{pirrep}{level}"
+
+            if not os.path.exists(f"./result/{IrrepPath}/{self.filename}_bs"):
+                gv.dump(self.bsresult, f"./result/{IrrepPath}/{self.filename}_bs")
             else:
-                bsresult = gv.load(f"./result/{self.filename}_bs")
+                bsresult = gv.load(f"./result/{IrrepPath}/{self.filename}_bs")
                 for k in bsresult:
                     self.bsresult[k] = bsresult[k] + self.bsresult[k]
-                gv.dump(self.bsresult, f"./result/{self.filename}_bs")
+                gv.dump(self.bsresult, f"./result/{IrrepPath}/{self.filename}_bs")
 
             del self.bsresult
         else:
-            k, irrep, level = self.params['masterkey'][0][0]
-            IrrepPath = f"{k}{irrep}{level}"
+
+            k, pirrep, level = self.params['masterkey'][0][0]
+            IrrepPath = f"{k}{pirrep}{level}"
 
             if os.path.exists(f"./result/{IrrepPath}/{self.filename}"):
                 os.remove(f"./result/{IrrepPath}/{self.filename}")
@@ -1150,8 +1155,11 @@ class Fit:
 
 
     def get_bs_pickle_Nbs(self):
-        if os.path.exists(f"./result/{self.filename}_bs"):
-            bsresult = gv.load(f"./result/{self.filename}_bs")
+        k, pirrep, level = self.params['masterkey'][0][0]
+        IrrepPath = f"{k}{pirrep}{level}"
+
+        if os.path.exists(f"./result/{IrrepPath}/{self.filename}_bs"):
+            bsresult = gv.load(f"./result/{IrrepPath}/{self.filename}_bs")
             k = list(bsresult.keys())[0]
             Nbs=len(bsresult[k])-1 # first entry is boot0
         else:
@@ -1159,8 +1167,10 @@ class Fit:
         return Nbs
 
     def get_b0_posteriors(self):
-        if os.path.exists(f"./result/{self.boot0_file}"):
-            return gv.load(f"./result/{self.boot0_file}")
+        k, pirrep, level = self.params['masterkey'][0][0]
+        IrrepPath = f"{k}{pirrep}{level}"
+        if os.path.exists(f"./result/{IrrepPath}/{self.boot0_file}"):
+            return gv.load(f"./result/{IrrepPath}/{self.boot0_file}")
         else:
             print("can't get boot0, DOES NOT EXISTS: "+f"result/{self.boot0_file}")
             sys.exit('run again with p["bootstrap"] = False')
