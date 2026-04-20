@@ -1,4 +1,4 @@
-v0.5.1:
+v0.8.1:
 To do:
 1. See if it is possible to toggle boosted irrep states for fitting
 2. Create procedure that created this notebook
@@ -7,12 +7,20 @@ To do:
 
 To run: Run all. You can collapse most --really all-- of the cells. Click the blue bar (may be orange on browser localhost) on the left of the cell to collapse it. 
 
-Only 1 specific fit can be done at a time on the current version. 
-
 Data filed not included. 
 
 Known issues: 
 1. Plotting does not display the Q value. Temporary fix is to display Q value above the plot. 
 
 Possible issues: 
-1. Anomalous memory leak with vs code happened once during testing. Unable to reproduce the error. May not exist in the pushed version. 
+1. Anomalous memory leak with vs code happened ONCE during v0.5.1 testing. Was not able to reproduce the error. May not exist in the newer versions. 
+
+Environment: 
+Python 3.12.13
+Numpy 1.26.4
+Opt-Einsum 3.4.0
+Scipy 1.17.1
+Lsqfit 13.0.4
+gvar 13.1.7
+h5py 3.16.0
+matplotlib 3.10.8

@@ -62,7 +62,7 @@ def main(params):
 
     N_t = args.optimal.split('_NN')[0].split('_')[-1]
 
-    nn_file  = 'NN_{nn_iso}_{t_norm}_t0-td_{gevp}_N_n{N_inel}_t_{N_t}'
+    nn_file  = '{IrrepPath}/NN_{nn_iso}_{t_norm}_t0-td_{gevp}_N_n{N_inel}_t_{N_t}'
     nn_file += '_NN_{nn_model}_e{nn_el}_t_{t0}-15_ratio_'+str(args.ratio)+block
     if 'bsPrior' in args.optimal:
         bsPrior = args.optimal.split('bsPrior-')[1].split('.')[0]
@@ -316,8 +316,10 @@ def plot_one_tmin(t, axnn, axnnR, axQ, state, models, arg, nnFile, nnDict, nnMod
             nn_el     = models[model]['nn_el']
             if 'agnostic' in fit_model:
                 nn    = int(fit_model.split('agnostic_n')[1].split('_')[0])
+            IrrepPath = f"{state[0]}{state[1]}{state[2]}"
             nnDict.update({'gevp':gevp, 'N_inel':n_inel, 'nn_el':nn_el, 't0':t, 
-                            'nn_model':models[model]['nn_model']})
+                            'nn_model':models[model]['nn_model'],
+                            'IrrepPath':IrrepPath})
 
             if t == arg.tmin[0]:
                 if gevp == arg.gevp[0]:
