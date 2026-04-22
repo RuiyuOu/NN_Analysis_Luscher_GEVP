@@ -10,6 +10,8 @@ import itertools
 import nn_fit as fitter
 import summary_plot
 
+from pathlib import Path
+
 def flip(items, ncol):
     return itertools.chain(*[items[i::ncol] for i in range(ncol)])
 
@@ -119,6 +121,19 @@ def main(params):
 
     # get data keys
     fit_keys = {}
+
+    #Added to make the summary plotting work with the new filename system. 
+    if args.summary:
+        OldToken    = Path(args.optimal).parts[1]
+        for q in states:
+            NewToken    = f'{q[0]}{q[1]}{q[2]}'
+            p           = Path(args.optimal)
+            parts       = list(p.parts)
+            parts[1]    = NewToken
+            NewPath     = str(Path(*parts))
+            if NewToken != OldToken:
+                post_optimal.update(gv.load(NewPath))
+
     for q in states:
         for k in post_optimal:
             if k[1] == 'e0' and k[0][1] == 'R' and k[0][0] == q:
@@ -212,6 +227,7 @@ def main(params):
     if args.summary:
         plt.show()
         plt.close('all')
+        plt.ioff()
         if nn_iso == 'deuteron':
             mN = gevp_results['0_T1g_0']['E1'][0]
         elif nn_iso == 'dineutron':

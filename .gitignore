@@ -3,7 +3,6 @@ data
 figures
 plots
 result
-result_old
 nn_bash_scripts
 *.txt
 *.h5
@@ -18,5 +17,3 @@ nn_bash_scripts
 *.pdf
 __pycache__/
 .ipynb_checkpoints/
-TestingAndDebugNotebook.ipynb
-result_old_051v
