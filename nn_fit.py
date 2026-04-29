@@ -24,6 +24,8 @@ import lsqfit
 import nn_parameters as parameters
 import bs_utils
 
+import json_priors_utils as jsonpriors
+
 def block_data(data, bl):
     ''' data shape is [Ncfg, others]
         bl = block length in configs
@@ -163,6 +165,8 @@ class Fit:
         self.ratio_denom = self.get_ratio_combinations_Eff()
         self.ratio = self.params['ratio']
         #import IPython; IPython.embed()
+
+        self.autopriors = self.params["autopriors"]
 
     def get_all_levels(self):
         d_sets = list(self.d_sets)
@@ -865,11 +869,18 @@ class Fit:
                                                 prior[(key, f"e_{n1}_{n2}")] = gv.gvar(en, sig_factor * e0)
                                             prior[(key, f"z_{n1}_{n2}")] = gv.gvar(zn, 0.25)
 
+                    jsonpriors.save_json_priors(prior,filename="nn_priors.json")
+
                     if self.params["debug"]:
                         for k in prior:
                             print(k, prior[k])
+
         elif type == "manual":
-            pass
+            print("Loading manual priors...")
+            prior = jsonpriors.load_json_priors(filename="nn_priors.json")
+            if self.params["debug"]:
+                for k in prior:
+                    print(k, prior[k])
         return prior
 
     def format_data(self, subset, nbs=0, ratio=True, svdcut=False):
@@ -1012,18 +1023,18 @@ class Fit:
                 if self.ratio:
                     x, y0, ybs = self.format_data(subset, nbs, svdcut=self.params['svd_study'])
                     prior = gv.BufferDict()
-                    prior = self.set_priors(prior, data=(x, y0), nbs=nbs, type="auto")
+                    prior = self.set_priors(prior, data=(x, y0), nbs=nbs, type=self.autopriors)
                 else:
                     # make Energy priors with ratio
                     x, y0, ybs = self.format_data(subset, nbs, ratio=True)
                     prior = gv.BufferDict()
-                    prior = self.set_priors(prior, data=(x, y0), nbs=nbs, type="auto")
+                    prior = self.set_priors(prior, data=(x, y0), nbs=nbs, type=self.autopriors)
 
                     # remake data without ratio
                     x, y0, ybs = self.format_data(subset, nbs, ratio=False, svdcut=self.params['svd_study'])
                     # we need to make ground state overlap factor priors with non-ratio data
                     prior_z = gv.BufferDict()
-                    prior_z = self.set_priors(prior_z, data=(x, y0), nbs=nbs, type="auto")
+                    prior_z = self.set_priors(prior_z, data=(x, y0), nbs=nbs, type=self.autopriors)
                     for k in prior_z:
                         if k[-1] == 'z0':
                             # the single nucleon overlaps will be determined the same in both cases
@@ -1059,7 +1070,7 @@ class Fit:
                         print(e)
                         print('trying new BS prior_mean')
                         # I need to fix priors based upon ratio or not
-                        prior = self.set_priors(prior, data=(x, y0), nbs=nbs, type="auto", seed='2')
+                        prior = self.set_priors(prior, data=(x, y0), nbs=nbs, type=self.autopriors, seed='2')
                         result = lsqfit.nonlinear_fit(
                             data=(x, ybs), prior=prior, p0=p0_bs, fcn=self.func, 
                             maxit=100000, fitter=self.params['fitter'], svdcut=svdcut
