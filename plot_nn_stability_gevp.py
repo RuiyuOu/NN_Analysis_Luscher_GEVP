@@ -298,6 +298,7 @@ def plot_tmin(axnn, axnnR, axQ, state, models, arg, nnFile, nnDict, nnModel, opt
 
 def plot_one_tmin(t, axnn, axnnR, axQ, state, models, arg, nnFile, nnDict, nnModel, optModel, fitKeys, nnData, r_gevp, l_gevp, r_tmin, l_tmin):
     marker = {
+        'N_n5_NN_conspire_e0':'v',
         'N_n4_NN_conspire_e0':'s',
         'N_n3_NN_conspire_e0':'*',
         'N_n2_NN_conspire_e0':'o',

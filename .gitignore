@@ -17,3 +17,4 @@ nn_bash_scripts
 *.pdf
 __pycache__/
 .ipynb_checkpoints/
+nn_fit_lus.py

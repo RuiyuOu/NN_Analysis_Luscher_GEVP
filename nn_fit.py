@@ -25,6 +25,7 @@ import nn_parameters as parameters
 import bs_utils
 
 import json_priors_utils as jsonpriors
+import pandas as pd
 
 def block_data(data, bl):
     ''' data shape is [Ncfg, others]
@@ -161,12 +162,15 @@ class Fit:
         if self.params['bootstrap']:
             self.boot0_file = self.filename.replace('_bsPrior-'+bs_prior,"")
 
+        self.bspath = self.params["bspath"]
+
         self.data, self.irrep_dim = self.gevp_correlators()
         self.ratio_denom = self.get_ratio_combinations_Eff()
         self.ratio = self.params['ratio']
         #import IPython; IPython.embed()
 
         self.autopriors = self.params["autopriors"]
+
 
     def get_all_levels(self):
         d_sets = list(self.d_sets)
@@ -653,8 +657,11 @@ class Fit:
                 # if we have blocked - nucleon has the correct number of "configs"
                 ncfg = nucleon[next(iter(nucleon))].shape[0]
                 if self.old_bs:
-                    with h5.File('data/bslist_802.h5','r') as tmp5:
-                        self.draws = tmp5['bslist_802'][()]
+                    # with h5.File('data/bslist_802.h5','r') as tmp5:
+                    #     self.draws = tmp5['bslist_802'][()]
+                    print("Loading saved BS draws file")
+                    bspath = self.bspath
+                    self.draws = pd.read_csv(bspath).to_numpy(dtype=int)
                 else:
                     self.draws = bs_utils.make_bs_list(ncfg, self.params['Nbs_max'], seed=self.params['bs_seed'])
                 self.h5_bs = True

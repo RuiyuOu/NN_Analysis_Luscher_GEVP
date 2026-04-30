@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import hashlib
 from numpy.random import Generator, SeedSequence, PCG64
-
+import pandas as pd
 
 def get_rng(seed: str, verbose=False):
     """Generate a random number generator based on a seed string."""
@@ -35,6 +35,9 @@ def make_bs_list(Ndata, Nbs, Mbs=None, seed=None, verbose=False, add_b0=True):
         if m_bs != Ndata:
             sys.exit('in order to insert boot0, Mbs must equal Ncfg: Ncfg=%d, Mbs=%d' %(NData,m_bs))
         bs_list = np.insert(bs_list, 0, np.arange(Ndata), axis=0)
+
+    df = pd.DataFrame(bs_list)
+    df.to_csv("bs_list.csv", index=False)
 
     return bs_list
 

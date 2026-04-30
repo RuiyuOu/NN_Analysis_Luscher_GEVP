@@ -1,10 +1,10 @@
+v1: Documentation and such in progress. 
+
 v0.8.1:
 To do:
 1. See if it is possible to toggle eff mass or overlap for fitting
-2. Save bootstrapped data file
-3. Create procedure that created this notebook
-4. See how to manually add fit priors. Currently set to auto.
-5. Any other demands
+2. Create procedure that created this notebook
+3. Any other demands
 
 To run: Run all. You can collapse most --really all-- of the cells. Click the blue bar (may be orange on browser localhost) on the left of the cell to collapse it. 
 
