@@ -4,17 +4,5 @@ figures
 plots
 result
 nn_bash_scripts
-*.txt
-*.h5
-*.hdf5
-*.pkl
-*.pickle
-*.npz
-*.npy
-*.gif
-*.mp4
-*.png
-*.pdf
 __pycache__/
 .ipynb_checkpoints/
-nn_fit_lus.py

@@ -1,17 +1,7 @@
-v1: Documentation and such in progress. 
+This project is derived from the Cosmon Collaboration nn c103 analysis repository, licensed under
+the BSD 3-Clause License. Additional modifications and development © 2026 Ruiyu Ou.
 
-v0.8.1:
-To do:
-1. See if it is possible to toggle eff mass or overlap for fitting
-2. Create procedure that created this notebook
-3. Any other demands
-
-To run: Run all. You can collapse most --really all-- of the cells. Click the blue bar (may be orange on browser localhost) on the left of the cell to collapse it. 
-
-Data filed not included. 
-
-Possible issues: 
-1. Anomalous memory leak with vs code happened ONCE during v0.5.1 testing. Was not able to reproduce the error. May not exist in the newer versions. 
+Please read documentation PDF. 
 
 Environment: 
 - Python 3.12.13
